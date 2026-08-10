@@ -1,7 +1,7 @@
 package irepository
 
 import (
-	"www.github.com/fuadnuri/Go-chat/internal/domain/entities"
+	"github.com/fuadnuri/Go-chat/internal/domain/entities"
 )
 
 type IUserRepository interface {

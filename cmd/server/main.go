@@ -10,8 +10,8 @@ import (
 	"syscall"
 	"time"
 
-	config "www.github.com/fuadnuri/Go-chat/configs"
-	"www.github.com/fuadnuri/Go-chat/internal/adapter/httpadapter"
+	config "github.com/fuadnuri/Go-chat/configs"
+	"github.com/fuadnuri/Go-chat/internal/adapter/httpadapter"
 )
 
 func main() {
