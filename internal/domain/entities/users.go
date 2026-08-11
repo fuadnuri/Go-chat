@@ -1,13 +1,16 @@
 package entities
 
+import "time"
+
 type UserEntity struct {
 	ID        *uint64
 	Firstname string
 	Lastname  string
 	Username  string
 	DoB       string
-	CreatedAt string
 	Email     string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 func NewUser(firstname, lastname, username, dob, email string) *UserEntity {

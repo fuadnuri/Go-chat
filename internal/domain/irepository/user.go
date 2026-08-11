@@ -5,7 +5,7 @@ import (
 )
 
 type IUserRepository interface {
-	getUserByID(id uint64) entities.UserEntity
-	getuserByUsername(username string) entities.UserEntity
-	CreateUser(user entities.UserEntity) *entities.UserEntity
+	GetByID(id uint) (*entities.UserEntity, error)
+	GetByUsername(username string) (*entities.UserEntity, error)
+	CreateUser(user entities.UserEntity) (*entities.UserEntity, error)
 }
