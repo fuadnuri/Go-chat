@@ -14,20 +14,24 @@ import (
 	"github.com/fuadnuri/Go-chat/internal/adapter/httpadapter"
 )
 
-func main() {
+var rts = httpadapter.Routes()
 
-	rts := httpadapter.Routes()
-
-	config := config.Load()
-	server := &http.Server{
-		Addr:              fmt.Sprintf("%s:%s", config.Server.Host, config.Server.Port),
+func server() *http.Server {
+	cfg := config.Load()
+	return &http.Server{
+		Addr:              fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port),
 		Handler:           rts,
-		ReadTimeout:       config.Server.ReadTimeout,
-		WriteTimeout:      config.Server.WriteTimeout,
-		ReadHeaderTimeout: config.Server.ReadHeaderTimeout,
-		IdleTimeout:       config.Server.IdleTimeout,
+		ReadTimeout:       cfg.Server.ReadTimeout,
+		WriteTimeout:      cfg.Server.WriteTimeout,
+		ReadHeaderTimeout: cfg.Server.ReadHeaderTimeout,
+		IdleTimeout:       cfg.Server.IdleTimeout,
 		MaxHeaderBytes:    1 << 20,
 	}
+}
+
+func main() {
+
+	server := server()
 	//start the server
 	go func() {
 		log.Println("Starting server on port 8000")
@@ -48,7 +52,9 @@ func main() {
 		context.Background(),
 		10*time.Second,
 	)
+
 	defer cancel()
+
 	if err := server.Shutdown(ctx); err != nil {
 		log.Fatalf("Graceful shutdown failed: %v", err)
 		//false shutdown remaining connections
@@ -57,7 +63,5 @@ func main() {
 		}
 	}
 	log.Println("Server gracefully stopped")
-
 	//wait for interrupt signal
-
 }
