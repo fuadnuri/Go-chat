@@ -3,6 +3,8 @@ package repository
 import (
 	"fmt"
 
+	"github.com/fuadnuri/Go-chat/internal/domain/entities"
+	modelentitymapper "github.com/fuadnuri/Go-chat/internal/infrastructure/ModelEntityMapper"
 	"github.com/fuadnuri/Go-chat/internal/infrastructure/database/models"
 	"gorm.io/gorm"
 )
@@ -54,4 +56,19 @@ func (repo *UserRepositororyImpl) Delete(userID uint) error {
 		return fmt.Errorf("error: %s", result.Error.Error())
 	}
 	return nil
+}
+
+// user login
+func (repo *UserRepositororyImpl) Login(username, password string) (*entities.UserEntity, error) {
+	var userModel models.UserModel
+	if err := repo.DB.Where("username=?", username).Find(&userModel); err != nil {
+		return nil, fmt.Errorf("user not found: %s", err)
+	}
+
+	if userModel.PasswordHash != password {
+		return nil, fmt.Errorf("incorrect password!")
+	}
+	user := modelentitymapper.UserModelToEntity(userModel)
+
+	return user, nil
 }

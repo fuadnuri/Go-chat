@@ -8,4 +8,5 @@ type IUserRepository interface {
 	GetByID(id uint) (*entities.UserEntity, error)
 	GetByUsername(username string) (*entities.UserEntity, error)
 	CreateUser(user entities.UserEntity) (*entities.UserEntity, error)
+	Login(username, passwordhash string) (*entities.UserEntity, error)
 }

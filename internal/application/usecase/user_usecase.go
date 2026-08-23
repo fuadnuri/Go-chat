@@ -1,6 +1,9 @@
 package usecase
 
 import (
+	"os/user"
+
+	"github.com/fuadnuri/Go-chat/internal/application/dto"
 	"github.com/fuadnuri/Go-chat/internal/domain/entities"
 	"github.com/fuadnuri/Go-chat/internal/domain/irepository"
 )
@@ -23,4 +26,11 @@ func (uc *UserUsecase) GetUserByID(id uint) (*entities.UserEntity, error) {
 
 		return user, nil
 	}
+}
+func (uc *UserUsecase) UserLogin(user dto.AuthDTO) (*dto.AuthResponseDto,error){
+	authResponse:=dto.AuthResponseDto{}
+	if user,err:=uc.Repo.Login(user.Username,user.Password);err!=nil{
+		return nil,err
+	}
+		
 }
