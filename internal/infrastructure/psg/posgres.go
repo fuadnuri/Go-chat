@@ -3,21 +3,18 @@ package postgres
 import (
 	"os"
 
-	"fmt"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-type Pql struct {
-	DB *gorm.DB
-}
+var DB *gorm.DB
 
-func NewDatabase() (*gorm.DB, error) {
-	conn_string := os.Getenv("CONNECTION_STRING")
-	db, err := gorm.Open(postgres.Open(conn_string), &gorm.Config{})
+func NewDatabase() error {
+	dsn := os.Getenv("DB")
+	var err error
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, fmt.Errorf("coudn't create Coonection: %s", err.Error())
+		panic("unable to connect to database")
 	}
-	return db, nil
+	return nil
 }

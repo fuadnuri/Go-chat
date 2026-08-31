@@ -72,3 +72,15 @@ func (repo *UserRepositororyImpl) Login(username, password string) (*entities.Us
 
 	return user, nil
 }
+
+func (repo *UserRepositororyImpl) Register(newUser entities.UserEntity) error {
+	var userModel models.UserModel
+	userModel = *modelentitymapper.UserEntityToModel(newUser)
+	res := repo.DB.Create(&userModel)
+
+	if res.Error != nil {
+		return res.Error
+	}
+	return nil
+
+}

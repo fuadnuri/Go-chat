@@ -16,8 +16,8 @@ func UserModelToEntity(usermodel models.UserModel) *entities.UserEntity {
 	}
 }
 
-func UserEntityToModel(UserEntity entities.UserEntity) *entities.UserEntity {
-	return &entities.UserEntity{
+func UserEntityToModel(UserEntity entities.UserEntity) *models.UserModel {
+	return &models.UserModel{
 		Username:  UserEntity.Username,
 		Firstname: UserEntity.Firstname,
 		Lastname:  UserEntity.Lastname,
