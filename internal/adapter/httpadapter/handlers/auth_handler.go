@@ -35,6 +35,7 @@ func Login(ctx *gin.Context) {
 	slog.Info("Login successful", "email", userDto.Email)
 	ctx.JSON(200, gin.H{"token": "token"})
 	return
+	
 	//if user does not exist, return error
 	
 }
