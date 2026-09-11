@@ -1,11 +1,13 @@
 package handlers
 
 import (
+	"log/slog"
 	"net/http"
-
-	"github.com/fuadnuri/Go-chat/internal/adapter/httpadapter/response"
+	"github.com/gin-gonic/gin"
 )
 
-func HandleRequest(w http.ResponseWriter, r *http.Request) {
-	response.WriteJSON(w, http.StatusOK, "Hello, World!")
+func HandleRequest(ctx *gin.Context) {
+	slog.Info("HandleRequest called")
+	ctx.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
 }
+

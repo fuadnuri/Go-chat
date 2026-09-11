@@ -1,13 +1,15 @@
 package httpadapter
 
 import (
-	"net/http"
-
+	"github.com/gin-gonic/gin"
+	"log/slog"
 	"github.com/fuadnuri/Go-chat/internal/adapter/httpadapter/handlers"
 )
 
 func Routes() http.Handler {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", handlers.HandleRequest)
+	slog.Info("Initializing HTTP routes")
+	mux := gin.New()
+
+	mux.GET("/", handlers.HandleRequest)
 	return mux
 }
